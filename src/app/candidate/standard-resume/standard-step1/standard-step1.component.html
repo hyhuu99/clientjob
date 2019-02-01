@@ -1,0 +1,258 @@
+<div class="component-content">
+    <div class="content content-form">
+        <div class="progress" style="margin-bottom: 15px;">
+                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                    <span class="hidden-xs">Bước 1/4</span> 
+                </div>
+        </div>
+        <form (ngSubmit)="step1Form.valid"  [formGroup]="step1Form" novalidate>
+            <div class="panel panel-form">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Tiêu đề đơn xin việc</h4>
+                </div>
+                <div class="panel-body">
+                            
+                    <div class="form-group">
+                       <label for="titleForm" class="required control-label col-sm-3">Tiêu đề đơn xin việc<strong class="text-danger"> *</strong></label>
+
+                    <div class="col-sm-9">
+                        
+                        <input *ngIf="resumeModel.title !== null" type="text" id="titleForm"  formControlName="title" class="form-control" [(ngModel)]="resumeModel.title" >
+                        <input *ngIf="resumeModel.title === null" type="text" id="titleForm"  formControlName="title" class="form-control">
+                        <div *ngIf=" isSubmit  && f.title.errors">
+                            <small class="text-danger" *ngIf = "f.title.errors.required">
+                                Vui lòng nhập Tiêu đề đơn xin việc.
+                            </small>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="panel panel-form">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Thông tin cá nhân</h4>
+                    </div>
+                
+                <div class="panel-body">
+                                
+                    <div class="form-group">
+                            <label for="fullnameForm" class="required control-label col-sm-3">Họ và tên<strong class="text-danger"> *</strong></label>
+                                
+                        <div class="col-sm-9">
+                            <input *ngIf="resumeModel.contactInfo !== null" type="text" id="fullnameForm" formControlName="fullName" class="form-control" [(ngModel)]="resumeModel.contactInfo.fullName">
+                            <input *ngIf="resumeModel.contactInfo === null" type="text" id="fullnameForm" formControlName="fullName" class="form-control">
+                            <div *ngIf=" isSubmit && f.fullName.errors">
+                                <small class="text-danger" *ngIf = "f.fullName.errors.required">
+                                    Vui lòng nhập họ tên của bạn.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                                
+                    <div class="form-group">
+                            <label for="genderForm" class="required control-label col-sm-3">Giới tính<strong class="text-danger"> *</strong></label>
+                
+                        <div class="col-sm-9">
+                            <div *ngIf="resumeModel.contactInfo !== null">
+                                    <select  id="genderForm"  formControlName="gender" class="form-control select-width" [(ngModel)]="resumeModel.contactInfo.relationShip.id">
+                                        <option *ngFor="let gender of genders" [value]="gender.id">{{gender.name}}</option>
+                                    </select>
+                            </div>
+                            <div *ngIf="resumeModel.contactInfo === null">
+                                    <select  id="genderForm"  formControlName="gender" class="form-control select-width" >
+                                        <option *ngFor="let gender of genders" [value]="gender.id">{{gender.name}}</option>
+                                    </select>
+                            </div>
+                            <div *ngIf="isSubmit && f.gender.errors" >
+                                <small class="text-danger" *ngIf = "f.gender.errors.required">
+                                    <label>Vui lòng chọn giới tính.</label> 
+                                </small>
+                            </div> 
+                        </div>
+                    </div>
+                
+                        <div class="form-group">
+                            <label for="dayOfBirthForm" class="required control-label col-sm-3">Ngày sinh<strong class="text-danger"> *</strong></label>
+                
+                            <div class="col-sm-9 form-inline">
+                                    <input class="form-control select-width" id="dayOfBirthForm" placeholder="yyyy-mm-dd" formControlName="dayOfBirth"
+                                             name="dp" [(ngModel)]="dateOfBirth"  ngbDatepicker #d="ngbDatepicker">
+                                    <div class="input-group-append">
+                                        <button class="btn" (click)="d.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+                                    </div>
+                
+                                <div *ngIf="resumeModel.contactInfo === null && isSubmit && f.dayOfBirth.errors">
+                                    <small class="text-danger" *ngIf = "f.dayOfBirth.errors.required || f.monthOfBirth.errors.required || f.yearOfBirth.errors.required">
+                                        Vui lòng chọn ngày sinh.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                
+                                
+                    <div class="form-group">
+                            <label for="relationshipForm" class="required control-label col-sm-3">Tình trạng hôn nhân<strong class="text-danger"> *</strong></label>
+                
+                        <div class="col-sm-9 ">
+                            <select *ngIf="resumeModel.contactInfo !== null" id="relationshipForm" formControlName="relationship" class="form-control select-width" [(ngModel)]="resumeModel.contactInfo.relationShip.id">
+                            <option *ngFor="let relationship of relationships" [value]="relationship.id">{{relationship.name}}</option>
+                            </select>
+
+                            <select *ngIf="resumeModel.contactInfo === null" id="relationshipForm" formControlName="relationship" class="form-control select-width" >
+                                <option *ngFor="let relationship of relationships" [value]="relationship.id">{{relationship.name}}</option>
+                            </select>
+                
+                            <div *ngIf="isSubmit && f.relationship.errors">
+                                <small class="text-danger" *ngIf = "f.relationship.errors.required">
+                                    Vui lòng chọn Tình trạng hôn nhân.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                                
+                    <div class="form-group">
+                        <label for="nationalityForm" class="required control-label col-sm-3">Quốc tịch<strong class="text-danger"> *</strong></label>
+                
+                                
+                        <div class="col-sm-9">
+                            
+                            <select *ngIf="resumeModel.contactInfo !== null" id="nationalityForm" formControlName="nationality" class="form-control select-width" [(ngModel)]="resumeModel.contactInfo.nationality.id">
+                                <option *ngFor="let nationality of countrys" [value]="nationality.id">{{nationality.name}}</option>
+                            </select>
+
+                            <select *ngIf="resumeModel.contactInfo === null" id="nationalityForm" formControlName="nationality" class="form-control select-width">
+                                <option *ngFor="let nationality of countrys" [value]="nationality.id">{{nationality.name}}</option>
+                            </select>
+                
+                            <div *ngIf="isSubmit && f.nationality.errors">
+                                <small class="text-danger" *ngIf = "f.nationality.errors.required">
+                                    Vui lòng nhập Quốc Tịch.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="panel panel-form">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Thông tin liên hệ</h4>
+                    </div>
+                    <div class="panel-body">
+                                
+                    <div class="form-group">
+                        <label for="addressForm" class="required control-label col-sm-3">Địa chỉ<strong class="text-danger"> *</strong></label>
+                        <div class="col-sm-9">
+                            <input *ngIf="resumeModel.contactInfo !== null" type="text" id="addressForm"  formControlName="address" class="form-control" [(ngModel)] = "resumeModel.contactInfo.address">
+                            <input *ngIf="resumeModel.contactInfo === null" type="text" id="addressForm"  formControlName="address" class="form-control">
+                            <div *ngIf="isSubmit && f.address.errors">
+                                <small class="text-danger" *ngIf = "f.address.errors.required">
+                                    Vui lòng nhập địa chỉ.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="countryForm" class="required control-label col-sm-3">Quốc gia<strong class="text-danger"> *</strong></label>
+                        
+                        <div class="col-sm-9 ">
+
+                            <select *ngIf="resumeModel.contactInfo !== null" id="countryForm" formControlName="country" class="form-control select-width" (change)="onChangeCountry($event)" [(ngModel)] = "resumeModel.contactInfo.country.id">
+                                <option *ngFor="let country of countrys" [value]="country.id">{{country.name}}</option>
+                            </select>
+
+                            <select *ngIf="resumeModel.contactInfo === null" id="countryForm" formControlName="country" class="form-control select-width" (change)="onChangeCountry($event)">
+                                <option *ngFor="let country of countrys" [value]="country.id">{{country.name}}</option>
+                            </select>
+                            <div *ngIf="isSubmit && f.country.errors">
+                                <small class="text-danger" *ngIf = "f.country.errors.required">
+                                    Vui lòng chọn quốc gia.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                            <label for="cityForm" class="required control-label col-sm-3">Tỉnh</label>
+                
+                             <div class="col-sm-9">
+                                <select *ngIf="notBindingCity === false && resumeModel.contactInfo !== null " id="cityForm" formControlName="city"  class="form-control select-width" [(ngModel)] = "resumeModel.contactInfo.city.id">
+                                    <option *ngFor="let city of citys" [value]="city.id">{{city.name}}</option>
+                                </select>
+                                <select *ngIf="notBindingCity === true || resumeModel.contactInfo === null" id="cityForm" formControlName="city"  class="form-control select-width">
+                                    <option *ngFor="let city of citys" [value]="city.id">{{city.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                                
+                    <div class="form-group">
+                            <label for="phoneNumberForm" class="control-label col-sm-3">Số điện thoại</label>
+                  
+                        <div class="col-sm-9">
+                            <input  *ngIf="resumeModel.contactInfo !== null" type="text" formControlName="phoneNumber" id="phoneNumberForm"  class="form-control" [(ngModel)] = "resumeModel.contactInfo.phoneNumber">
+                            <input  *ngIf="resumeModel.contactInfo === null" type="text" formControlName="phoneNumber" id="phoneNumberForm"  class="form-control" >
+
+                        </div>
+                    </div>
+                                
+                    <div class="form-group">
+                                <label for="emailForm" class="required control-label col-sm-3">E-Mail<strong class="text-danger"> *</strong></label>
+                                
+                        <div class="col-sm-9">
+                            <input *ngIf="resumeModel.contactInfo !== null" [(ngModel)] = "resumeModel.contactInfo.email" type="email" id="emailForm" formControlName="email" class="form-control" email pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">
+                            <input *ngIf="resumeModel.contactInfo === null" type="email" id="emailForm" formControlName="email" class="form-control" email pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">
+                
+                            <div *ngIf="isSubmit && f.email.errors">
+                                <small class="text-danger" *ngIf = "f.email.errors.required">
+                                    Vui lòng nhập Email.
+                                </small>
+                                <small class="text-danger" *ngIf = "f.email.errors.email">
+                                    Địa chỉ email không đúng định dạng.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-form">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Ảnh đại diện</h4>
+                </div>
+                <div class="panel-body">
+                            
+                <div class="form-group">
+                       
+                        <div class="required col-sm-3">
+                            <input #imageInput
+                            type="file"
+                            accept="image/*"
+                            (change)="processFile(imageInput)">
+                            <button type="button" class="btn btn-danger btn-sm" (click)="deleteImage()">Xóa hình đại diện</button>
+                        </div>
+                        <div class="col-sm-9 " *ngIf="imageSrc !== null">
+                                <img id="blah" class="avatar-image" [src]="imageSrc"  />
+                        </div>
+                </div>
+                            
+                </div>
+            </div>
+    
+            <div class="form-group form-btn-container row">
+                    <div *ngIf="resumeModel.contactInfo === null" class="offset-sm-3 col-sm-9">
+                        <input [hidden]="isSubmit && !step1Form.valid" type="submit" name="btnBack" class="btn btn-default" value="Lưu tạm" type="submit" (click)="saveBack()">
+                        <input [hidden]="isSubmit && !step1Form.valid" type="submit" name="btnNext" class="btn btn-primary" value="Lưu Bước 1 để tiếp tục Bước 2" type="submit" (click)="saveData()">
+                    </div>
+                    <div *ngIf="resumeModel.contactInfo !== null" class="offset-sm-3 col-sm-9">
+                        <input [hidden]="isSubmit && !step1Form.valid" type="submit" name="btnBack" class="btn btn-default" value="Đóng" (click)="onClose()">
+                        <input [hidden]="isSubmit && !step1Form.valid" type="submit" name="btnNext" class="btn btn-primary" value="Lưu Bước 1" type="submit" (click)="saveData()">
+                    </div>
+            </div>
+        </form>
+
+         
+
+    </div>
+</div>

@@ -1,0 +1,10 @@
+<section class="banner-area relative" id="home">
+  <div class="row fullscreen d-flex align-items-end justify-content-center" style="height: 144px;">
+    <div class="banner-content col-lg-12">
+      <app-search-bar [jobQuery]="jobQuery"></app-search-bar>
+    </div>
+  </div>
+</section>
+<section class="post-area section-gap">
+    <app-job-posting [jobQuery]="jobQuery"></app-job-posting>
+</section>

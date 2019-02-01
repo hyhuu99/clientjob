@@ -1,0 +1,35 @@
+.tag {
+    display: block !important;
+    width: 150px;
+    text-align: center;
+}
+
+.logo {
+    margin-left: 25px;
+    cursor: pointer;
+}
+
+.thumb {
+    width: 200px;
+}
+.btns {
+    margin-left: 180px;
+}
+
+.post-list {
+    width: auto !important;
+    &__active {
+        background-color: #49e4fa !important;
+    }
+}
+
+.load-more {
+    color: #fff;
+}
+
+.details {
+    width: 70%;
+}
+.break {
+    white-space: pre-line;
+}

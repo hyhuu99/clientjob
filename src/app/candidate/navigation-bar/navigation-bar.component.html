@@ -1,0 +1,35 @@
+<header id="header">
+  <div class="container">
+    <div class="row align-items-center justify-content-between d-flex">
+      <div id="logo" routerLink="/">
+        <a><img src="/assets/img/logo.png" alt="" title="" /></a>
+      </div>
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li><a routerLink="/timviec">Tất cả việc làm</a></li>
+          <li><a routerLink="/timviec">Việc làm hot</a></li>
+          <li><a routerLink="/hoso" *ngIf="isLogin && !isHr">Tạo CV</a></li>
+          <li><a routerLink="/login" *ngIf="!isLogin && !isHr">Tạo CV</a></li>
+          
+          <li><div *ngIf="!isLogin"><a class="ticker-btn" routerLink="/login">Đăng ký</a></div></li>
+          <li><div *ngIf="!isLogin"><a class="ticker-btn" routerLink="/login">Đăng nhập</a></div></li>
+          <li>
+              <div ngbDropdown class="d-inline-block" *ngIf="isLogin">
+                  <button class="btn btn-outline-light" id="user-dropdown" ngbDropdownToggle>{{username}}</button>
+                  <div ngbDropdownMenu aria-labelledby="user-dropdown" class="dropdown-menu" *ngIf="!isHr">
+                    <button class="dropdown-item" routerLink="/hoso">Quản lý hồ sơ</button>
+                    <!-- <button class="dropdown-item" routerLink="/taikhoan">Tài khoản</button> -->
+                    <button class="dropdown-item" (click)="logout()">Đăng xuất</button>
+                  </div>
+                  <div ngbDropdownMenu aria-labelledby="user-dropdown" class="dropdown-menu" *ngIf="isHr">
+                    <button class="dropdown-item" routerLink="/congty/thongtin">Thông tin công ty</button>
+                    <!-- <button class="dropdown-item" routerLink="/taikhoan">Tài khoản</button> -->
+                    <button class="dropdown-item" (click)="logout()">Đăng xuất</button>
+                  </div>
+                </div>   
+          </li>  
+        </ul>
+      </nav>    		
+    </div>
+  </div>
+</header>

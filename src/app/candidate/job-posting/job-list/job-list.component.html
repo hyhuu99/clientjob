@@ -1,0 +1,50 @@
+<ul class="cat-list">
+  <li class="post-list" [ngClass]="{'post-list__active': !queryParams.jobType}" (click)="jobTypeFilter()">
+    <a>Gần đây</a>
+  </li>
+  <li class="post-list" [ngClass]="{'post-list__active': queryParams.jobType===1}" (click)="jobTypeFilter(1)">
+    <a>Toàn thời gian</a>
+  </li>
+  <li class="post-list" [ngClass]="{'post-list__active': queryParams.jobType===2}" (click)="jobTypeFilter(2)">
+    <a>Bán thời gian</a>
+  </li>
+  <li class="post-list" [ngClass]="{'post-list__active': queryParams.jobType===3}" (click)="jobTypeFilter(3)">
+    <a>Tạm thời</a>
+  </li>
+  <li class="post-list" [ngClass]="{'post-list__active': queryParams.jobType===4}" (click)="jobTypeFilter(4)">
+    <a>Thực tập</a>
+  </li>
+</ul>
+<div class="single-post d-flex flex-row" *ngFor="let job of jobList">
+  <div class="thumb">
+    <img class="logo" src="/assets/img/post.png" alt="" [routerLink]="['/congviec', job.id]">
+    <ul class="tags">
+      <li class="tag" routerLink="/timviec" [queryParams]="{category: job.categoryId }">
+        <a>{{job.categoryName}}</a>
+      </li>
+      <li class="tag" routerLink="/timviec" [queryParams]="{location: job.locationId }">
+        <a>{{job.location}}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="details">
+    <div class="title d-flex flex-row justify-content-between">
+      <div class="titles">
+        <a [routerLink]="['/congviec', job.id]">
+          <h4>{{job.name}}</h4>
+        </a>
+        <h6>{{job.companyName}}</h6>
+      </div>
+    </div>
+    
+    <h5><span style="white-space: pre-line">{{job.summary}}</span></h5>
+    <p>
+      <span>Tính chất công việc: {{job.jobTypeName}}</span>
+    </p>
+    <p class="vacancies">
+      <span class="lnr lnr-bullhorn"></span> Số lượng: {{job.vacancies}}</p>
+    <p class="salary">
+      <span class="lnr lnr-database"></span> Mức lương: <span>{{ job.salary | number:0}} VNĐ</span></p>
+  </div>
+</div>
+<a class="text-uppercase loadmore-btn mx-auto d-block load-more" *ngIf="!isLoadedAll" (click)="loadMore()">Tải thêm</a>

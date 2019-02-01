@@ -1,0 +1,15 @@
+.panel-body {
+    background: #fff;
+    border: 1px solid #e5e6e7;
+    border-radius: 2px;
+    padding: 20px;
+    position: relative;
+}
+.component-content{
+    min-height: 100vh;
+}
+.center-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }

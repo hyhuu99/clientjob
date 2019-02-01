@@ -1,0 +1,45 @@
+<div class="component-content">
+  <div class="panel-body">
+    <div id="grid-job-list" class="col-sm-12">
+      <table class="table table-job-list">
+  <thead>
+  <tr>
+  <th class="col-job-title">Tiêu đề hồ sơ</th>
+  <th class="col-expiry">Ngày ứng tuyển</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let apply of pagesItems">
+  <td class="job-info" >
+    <a [routerLink]="['/congty/chitietungtuyen', apply.id]" class="job-title"><strong>{{apply.resume.title}}</strong></a>
+          <div class="job-location">
+            {{apply.resume.contactInfo.fullName}}
+           </div>
+    <div class="actions job-actions">
+      {{apply.resume.contactInfo.phoneNumber}}
+    </div>
+    <div class="actions job-actions">
+      <a [routerLink]="['/congty/chitietungtuyen', apply.id]" class="job-title"><strong>Xem chi tiết</strong></a>
+    </div>
+  
+  </td>
+  <td class="job-labels">
+    {{apply.dateToString}}
+  </td>
+
+  </tr>
+  </tbody>
+  </table>
+  <div class="center-btn" *ngIf="applyList && applyList.length >=6">
+    <button type="button" class="btn btn-outline-info" [disabled]="curPage == 0"
+      (click)="setPage(curPage = curPage-1)"> &lt; Trang trước</button>
+      <button type="button" class=" btn btn-outline-info " [disabled]="true">Trang {{curPage + 1}} trong {{ numberOfPages() }}</button>
+    <button type="button" class="btn btn-outline-info"
+    [disabled]="curPage >= applyList.length/pageSize - 1"
+    (click)="setPage(curPage = curPage+1)">Trang kế &gt;</button>
+  </div> 
+  
+  </div>
+  </div>
+
+</div>

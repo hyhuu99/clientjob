@@ -1,0 +1,36 @@
+<form action="search.html" class="serach-form-area">
+    <div class="row justify-content-center form-wrap">
+        <div class="col-lg-4 form-cols">
+            <input [(ngModel)]="searchText" type="text" class="form-control" name="search" (keyup.enter)="search()" placeholder="Nhập công việc bạn tìm kiếm">
+        </div>
+        <div class="col-lg-3 form-cols">
+            <div class="default-select" id="default-selects">
+                <div class="nice-select" tabindex="0" [ngClass]="isLocationSelect ? 'open' : ''" (click)="selectLocation($event)">
+                    <span class="current">{{currentLocation.name}}</span>
+                    <ul class="list">
+                        <li class="option"(click)="selectLocation($event, defaultLocation)">Chọn
+                            địa điểm</li>
+                        <li *ngFor="let location of locations" class="option" (click)="selectLocation($event, location)">{{location.name}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 form-cols">
+            <div class="default-select" id="default-selects2">
+                <div class=" nice-select" tabindex="0" [ngClass]="isCategorySelect ? 'open' : ''" (click)="selectCategory($event)">
+                    <span class="current">{{currentCategory.name}}</span>
+                    <ul class="list">
+                        <li class="option"(click)="selectCategory($event, defaultCategory)">Chọn
+                            ngành nghề</li>
+                        <li *ngFor="let category of categories" class="option" (click)="selectCategory($event, category)">{{category.name}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 form-cols">
+            <button type="button" class="btn btn-info" (click)=search()>
+                <span class="lnr lnr-magnifier"></span> Search
+            </button>
+        </div>
+    </div>
+</form>

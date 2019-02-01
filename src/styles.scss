@@ -1,0 +1,18 @@
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import '../node_modules/font-awesome/css/font-awesome.css';
+// including variables and mixins
+
+@import "/scss/theme/_variables";
+@import "/scss/theme/_mixins";
+@import "/scss/theme/_flexbox";
+@import "/scss/theme/_reset";
+
+@import "/scss/theme/_elements";
+@import "/scss/theme/_header";
+@import "/scss/theme/_home";
+@import "/scss/theme/_pages";
+@import "/scss/theme/_footer";
+
+a, li > a {
+    cursor: pointer;
+}

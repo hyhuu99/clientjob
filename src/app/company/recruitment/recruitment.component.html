@@ -1,0 +1,164 @@
+<div class="component-content">
+  <div class="panel-body">
+      <h2>
+          <span class="circle-wrapper"><i class="fa fa-suitcase"></i></span>
+          Mô tả công việc
+      </h2>
+      <form  (ngSubmit)="validMultiSelect && recruitmentForm.valid" [formGroup]="recruitmentForm" class="form-content">
+          <div class="form-group" >
+              <label for="nameForm" class="col-sm-3 control-label"  aria-required="true">Chức Danh</label>
+            <div class="col-md-9">
+              <input *ngIf="isEdit" [(ngModel)]="recruitmentModel.name" id="nameForm" type="text" placeholder="Vd: Software Engineer" class="form-control"  aria-required="true" formControlName="name">
+              <input *ngIf="!isEdit" id="nameForm" type="text" placeholder="Vd: Software Engineer" class="form-control"  aria-required="true" formControlName="name">
+              <div *ngIf="isSubmit && f.name.errors">
+                <small class="text-danger" *ngIf = "f.name.errors.required">
+                  Vui lòng nhập chức danh.
+                </small>
+              </div>
+            </div>
+            
+          </div>
+          <div class="form-group">
+              <label for="levelForm" class="col-sm-3 control-label"  aria-required="true">Cấp Bậc</label>
+            <div class="col-md-9"><select  id="levelForm" class="form-control select-width" formControlName="level" *ngIf="isEdit" [(ngModel)]="recruitmentModel.level.id">
+                <option  *ngFor="let level of levels" [value]="level.id">{{level.name}}</option> 
+              </select>
+              
+              <select  id="levelForm" class="form-control select-width" formControlName="level" *ngIf="!isEdit">
+                  <option value="" disabled selected>Vui lòng chọn</option>
+                  <option  *ngFor="let level of levels" [value]="level.id">{{level.name}}</option> 
+                </select>
+              <div *ngIf ="isSubmit && f.level.errors">
+                <small class="text-danger" *ngIf = "f.level.errors.required">
+                    Vui lòng chọn cấp bậc.
+                </small>
+            </div>
+            
+            </div>
+          </div>
+          <div class="form-group"> 
+            <label class="col-sm-3 control-label"  aria-required="true">Ngành nghề</label>
+          <div class="col-md-9" id="test">
+              <select2 [data]="categorys"
+              [options]="options"
+              [value]="categorysValue"
+              [width] = "300"
+              (valueChanged)="changedCategory($event)" [cssImport]=true ></select2>
+              <div *ngIf="isSubmit && validCategory">
+                   <small class="text-danger">
+                       Vui lòng nhập ngành nghề.
+                   </small>
+               </div>
+          </div>
+        </div>
+
+        <div class="form-group"> 
+          <label class="col-sm-3 control-label"  aria-required="true">Nơi Làm Việc</label>
+
+          <div class="col-md-9">
+            <select2 [data]="locations"
+            [options]="options"
+            [value]="locationValue"
+            [width] = "300"
+            (valueChanged)="changedLocation($event)" [cssImport]=true></select2>
+            <div *ngIf="isSubmit && validLocation">
+                 <small class="text-danger">
+                     Vui lòng nhập nơi làm việc.
+                 </small>
+             </div>
+          </div>
+        </div>
+
+        <div class="form-group"> 
+          <label id="jobType" class="col-sm-3 control-label"  aria-required="true">Loại hình công việc</label>
+        <div class="col-md-9">
+          <select *ngIf="!isEdit" id="jobType" class="form-control select-width" formControlName="jobType">
+              <option value="" disabled selected>Vui lòng chọn</option>
+              <option *ngFor="let jobTypeModel of jobTypeModels" [value]="jobTypeModel.id">{{jobTypeModel.name}}</option>
+           </select>
+           <select  *ngIf="isEdit" [(ngModel)]="recruitmentModel.jobType" id="jobType" class="form-control select-width" formControlName="jobType">
+              <option *ngFor="let jobTypeModel of jobTypeModels" [value]="jobTypeModel.id">{{jobTypeModel.name}}</option>
+           </select>
+             <div *ngIf ="isSubmit && f.jobType.errors">
+                <small class="text-danger" *ngIf = "f.jobType.errors.required">
+                    Vui lòng chọn loại công việc.
+                </small>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="form-group"> 
+          <label for="salaryForm" class="col-sm-3 control-label"  aria-required="true">Mức lương</label>
+        <div class="col-md-6 ">
+          <input currencyMask *ngIf="isEdit" [(ngModel)]="recruitmentModel.salary" id="salaryForm" placeholder="Nhập mức lương" class="form-control" formControlName="salary" [options]="currencyMask" >
+          <input currencyMask  *ngIf="!isEdit"  id="salaryForm" placeholder="Nhập mức lương" class="form-control" formControlName="salary" [options]="currencyMask">
+          <div *ngIf="isSubmit">
+            <div *ngIf ="f.salary.errors">
+                <small class="text-danger" *ngIf = "f.salary.errors.required">
+                    Vui lòng nhập mức lương.
+                  </small>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <input *ngIf="isEdit" [(ngModel)]="recruitmentModel.isShowSalary"  formControlName="isShowSalary" type="checkbox">
+            <input *ngIf="!isEdit" formControlName="isShowSalary" type="checkbox">
+            <em>Hiển thị mức lương</em>
+          </div>
+        </div>
+
+        <div class="form-group"> 
+          <label for="descriptionForm" class="col-sm-3 control-label"  aria-required="true">Mô Tả</label>
+        <div class="col-md-9">
+          <textarea *ngIf="isEdit" [(ngModel)]="recruitmentModel.description" placeholder="Nhập mô tả công việc" id="descriptionForm" formControlName="description" rows="6" class="form-control" ></textarea>
+          <textarea *ngIf="!isEdit" placeholder="Nhập mô tả công việc" id="descriptionForm" formControlName="description" rows="6" class="form-control" ></textarea>
+             <div *ngIf ="isSubmit && f.description.errors">
+                <small class="text-danger" *ngIf = "f.description.errors.required">
+                  Vui lòng nhập mô tả công việc.
+                  </small>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group"> 
+          <label for="summaryForm" class="col-sm-3 control-label"  aria-required="true">Yêu Cầu Công Việc</label>
+        <div class="col-md-9">
+          <textarea *ngIf="isEdit" [(ngModel)]="recruitmentModel.summary" placeholder="Nhập yêu cầu công việc" id="summaryForm" formControlName="summary" rows="6" class="form-control" ></textarea>
+          <textarea *ngIf="!isEdit" placeholder="Nhập yêu cầu công việc" id="summaryForm" formControlName="summary" rows="6" class="form-control" ></textarea>
+             <div *ngIf ="isSubmit && f.summary.errors">
+                <small class="text-danger" *ngIf = "f.summary.errors.required">
+                  Vui lòng nhập yêu cầu công việc.
+                </small>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group"> 
+          <label for="contactPersonForm" class="col-sm-3 control-label"  aria-required="true">Ngày hiệu lực</label>
+          
+        <div class="col-md-9 form-inline">
+            <input class="form-control select-width" id="dayOfBirthForm" placeholder="yyyy-mm-dd" formControlName="startDay"
+            name="dp"  ngbDatepicker #d="ngbDatepicker" [minDate]="minDate" [(ngModel)]="startDayLoad">
+            <div class="input-group-append">
+               <button class="btn" (click)="d.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+            </div>
+          <div *ngIf="isSubmit">
+             <div *ngIf ="isSubmit && f.startDay.errors">
+                  <small class="text-danger" *ngIf = "f.startDay.errors.required">
+                    Vui lòng chọn ngày hiệu lực.
+                  </small>
+            </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-right col-sm-12">
+          <button class="btn btn-primary btn-save-password btn" type="submit" (click)="saveData()">
+            <span>Lưu</span>
+          </button>
+        </div>
+    </form> 
+  </div>
+  </div>

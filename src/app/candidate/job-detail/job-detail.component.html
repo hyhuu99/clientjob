@@ -1,0 +1,138 @@
+
+<div class="component-content">
+    <div class="login-register">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="genric-btn" [ngClass]="flagShowHide ? 'primary' : 'default-border'" (click)="switch(true)">Thông tin</a>
+          </li>
+          <li class="nav-item">
+            <a class="genric-btn" [ngClass]="!flagShowHide ? 'primary' : 'default-border'" (click)="switch(false)">Công ty</a>
+          </li>
+        </ul>
+      </div>
+    <div class="panel-body">
+      <div class="job-info" *ngIf="flagShowHide">
+          <div class="row">
+                <div class="col-md-8  col-sm-12 tab-main-content">
+                        <h2 *ngIf="jobDetail !== undefined">{{jobDetail.name}}</h2>
+                        <div class="job-description mobile-box">
+                            <h3>Mô Tả Công Việc</h3>
+                            <div class="description" >
+                            <span class="break" *ngIf="jobDetail !== undefined"> {{jobDetail.description}} </span>
+                            </div>
+                        </div>
+    
+                        <div class="job-requirements mobile-box">
+                            <h3>Yêu Cầu Công Việc</h3>
+                            <div class="requirements" *ngIf="jobDetail !== undefined">
+                                <span class="break" *ngIf="jobDetail !== undefined"> {{jobDetail.summary}} </span>
+                            </div>
+                        </div>
+    
+                        
+                </div>
+    
+                <div class="col-md-4 col-sm-12 tab-sidebar">
+                        <div class="mobile-box">
+                            <div class="box-summary">
+                                <div class="summary-item">
+                                    <div class="summary-content">
+                                        <span class="mr-2"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                        <span class="content"> Ngày đăng tuyển: {{startDayLoad}}</span>
+                                    </div>
+                                    <div class="summary-content" *ngIf="jobDetail !== undefined">
+                                            <span class="mr-2"><i class="fa fa-stack-overflow" aria-hidden="true"></i></span>
+                                            <span class="content"> Cấp bậc: {{jobDetail.level.name}}</span>
+                                    </div>
+                                    <div class="summary-content" *ngIf="jobDetail !== undefined">
+                                            <span class="mr-2"><i class="fa fa-stack-exchange" aria-hidden="true"></i></span>
+                                            <span class="content"> Ngành nghề: {{jobDetail.categoryName}}</span>
+                                    </div>
+                                    <div class="summary-content" *ngIf="isShowSalary">
+                                            <span class="mr-2"><i class="fa fa-money" aria-hidden="true"></i></span>
+                                            <span class="content"> Mức lương: <span>{{ jobDetail.salary |  number:0}} VNĐ</span></span>
+                                    </div>
+                                    <div class="summary-content">
+                                            <span class="mr-2"><i class="fa fa-handshake-o" aria-hidden="true"></i></span>
+                                            <span class="content"> Loại công việc: {{jobTypeName}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-warning" (click)="open(content)" *ngIf="this.isApply">
+                                    Nộp Đơn
+                            </button>
+                            <ng-template #content let-c="close" let-d="dismiss">
+                                    <div class="modal-header">
+                                    <label for="app-resume" class="col-sm-3 col-xs-12 control-label">Chọn phương thức nộp hồ sơ </label>
+                                      <div class="form-group awe-check select-resume">
+                                        <div class="col-sm-9 col-xs-12">
+                                                <div class="row ">
+                                                        <div class="col-sm-12">
+                                                            <div class="radio radio-success">
+                                                                <input  type="radio" name="resumeApply" [value]="true" [(ngModel)]="methodSendCV" (click)="changeInput(false)">
+                                                                <label >Hồ sơ trực tuyến</label>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                            <!-- Upload New CV -->
+                                            <div class="row ">
+                                                <div class="col-sm-12">
+                                                    <div class="radio radio-success">
+                                                        <input  type="radio" name="resumeApply" [value]="false" id="optionsRadios3" [(ngModel)]="methodSendCV" (click)="changeInput(true)">
+                                                        <label for="fileAttach">Tải CV</label>
+                                                        <input #fileInput [disabled]="disableOptionCV" type="file" name="resumeFile" id="fileAttach" (change)="processFile(fileInput)">
+                                                    </div>
+                                                </div>
+                                            </div>
+                
+                                        </div>
+                                    </div>
+                                      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-outline-dark" (click)="c('Bo qua')">Bỏ qua</button>
+                                      <button type="button" class="btn btn-success" (click)="apply(c)">Ứng tuyển</button>
+                                    </div>
+                                  </ng-template>
+                    </div>
+                </div>
+
+          </div>
+            
+      </div>
+      <div class="company-info" *ngIf="!flagShowHide">
+        <div class="row">
+            <div class="col-md-8 col-sm-12 tab-main-content">
+                <div class="mobile-box">
+                        <span class="break"> {{companyModel.summary}} </span>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 tab-sidebar">
+                <div class="mobile-box">
+                    <div class="box-summary" *ngIf="isShowCompany" >
+                        <div class="summary-item" >
+                            <div class="summary-content">
+                                <span class="mr-2"><i class="fa fa-map-marker" ></i></span>
+                                <span class="content"> Địa Điểm: {{companyModel.address}}</span>
+                            </div>
+                            <div class="summary-content">
+                                    <span class="mr-2"><i class="fa fa-users" aria-hidden="true"></i></span>
+                                    <span class="content"> Quy mô: {{companyModel.scale.name}} người</span>
+                            </div>
+                            <div class="summary-content" >
+                                    <span class="mr-2"><i class="fa fa-phone" aria-hidden="true" ></i></span>
+                                    <span class="content"> Số điện thoại: {{companyModel.phoneNumber}}</span>
+                            </div>
+                            <div class="summary-content" >
+                                    <span class="mr-2"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                                    <span class="content"> Email: {{companyModel.email}}</span>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>

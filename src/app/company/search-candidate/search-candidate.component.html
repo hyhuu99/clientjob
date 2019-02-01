@@ -1,0 +1,113 @@
+<div class="component-content">
+  <div class="panel-body">
+      <div class="row">
+          <div class=" form-group col-sm-6">
+              <div class="input-group">
+                  <div class="input-group-addon"><i class="fa fa-fw fa-key"></i></div>
+                  <input type="text" id="searchResume_keyword" [(ngModel)]="titleValue" placeholder="Từ khóa. Ví dụ: .Net Developer" class="form-control">
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="form-group col-sm-6">
+              <div class="input-group">
+                  <div class="input-group-addon"><i class="fa fa-fw fa-map-marker"></i></div>
+                  <select  id="levelForm" class="form-control select-width" [(ngModel)]="levelValue">
+                      <option value="" disabled selected>Vui lòng chọn</option>
+                      <option  *ngFor="let level of levels" [value]="level.id">{{level.name}}</option> 
+                  </select>
+              </div>
+              
+          </div>
+
+          <div class="form-group col-sm-6">
+              <div class="input-group">
+                  <div class="input-group">
+                      <div class="input-group-addon"><i class="fa fa-fw fa-folder-open"></i></div>
+                      <select2 [data]="categorys"
+                          [options]="options"
+                          [width] = "300"
+                          (valueChanged)="changedCategory($event)" [cssImport]=true ></select2>
+                  </div>
+                  
+              </div>
+          </div>
+
+      </div>
+
+      <div class="row">
+          <div class="form-group col-sm-6">
+              <div class="input-group">
+                  <div class="input-group-addon"><i class="fa fa-fw fa-suitcase"></i></div>
+                  <select2 [data]="locations"
+                      [options]="options"
+                      [width] = "300"
+                      (valueChanged)="changedLocation($event)" [cssImport]=true></select2>
+              </div>
+          </div>
+
+          <div class="form-group col-sm-6">
+              <button type="submit" id="btnResumeSearch" name="btnResumeSearch" value="1" class="btn btn-warning" (click)="searchBtt()">
+                  <i class="fa fa-fw fa-search"></i> Tìm kiếm
+              </button> 
+          </div>
+
+      </div>
+    </div>
+    <div class="panel-body search-result" *ngIf="isSearch">
+        <div class="row">
+                <div class="col-md-6">
+                        <h2>
+                            Tìm thấy <strong>{{matchResume}}</strong> hồ sơ
+                        </h2>
+                </div>
+        </div>
+
+            <div class="search-result row" *ngFor="let resume of pagesItems" >
+                <div class="col-sm-12 m-b-sm">
+                        <h3>
+                            <a [routerLink]="['chitiethoso', resume.id]" class="resume-title" >
+                                 Tiêu đề:  <span class="keyword-highlight">{{resume.title}}</span>
+                            </a>
+                        </h3>
+                 </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-6 text-clip" >
+                            <i data-toggle="tooltip" title="" data-container=".search-results" class="fa fa-fw fa-folder-open" data-original-title="Ngành nghề"></i> 
+                            <div *ngFor="let category of resume.purpose.categorys; let i = index">
+                                    -{{category.name}}
+                            </div>
+                        </div>
+                        <div class="col-sm-6 text-clip"><i data-toggle="tooltip" title="" data-container=".search-results" class="fa fa-fw fa-map-marker" data-original-title="Nơi làm việc"></i> 
+                            <div *ngFor="let place of resume.purpose.placeOfWorks; let i = index">
+                                    -{{place.name}}
+                            </div>
+                        </div>
+                        <div class="col-sm-6 text-clip"><i data-toggle="tooltip" title="" data-container=".search-results" class="fa fa-fw fa-suitcase" data-original-title="Cấp bậc"></i> 
+                            {{resume.purpose.levelOfWork.name}}
+                        </div>
+                        <div class="col-sm-6 text-clip"><i data-toggle="tooltip" title="" data-container=".search-results" class="fa fa-fw fa-building" data-original-title="Công ty gần đây nhất"></i> 
+                            {{resume.expInfo.previousCompany}}
+                        </div>
+                        <div class="col-sm-12 m-t"></div>
+                     </div>
+                </div>
+                <div class="col-sm-2 extra-info">
+                    <div data-toggle="tooltip" title="" data-placement="top" data-delay="200" class="div text-center" data-original-title="Year of experience">
+                        <strong class="year-of-exp text-info">{{resume.expInfo.yearOfWork.name}}</strong>&nbsp; năm
+                    </div>
+                </div>
+
+            </div>
+        
+            <div class="center-btn" *ngIf="resumeList && resumeList.length >=6">
+                <button type="button" class="btn btn-outline-info" [disabled]="curPage == 0" 
+                  (click)="setPage(curPage = curPage-1)"> &lt; Trang trước</button>
+                  <button type="button" class=" btn btn-outline-info " [disabled]="true">Trang {{curPage + 1}} trong {{ numberOfPages() }}</button>
+                <button type="button" class="btn btn-outline-info"
+                [disabled]="curPage >= resumeList.length/pageSize - 1"
+                (click)="setPage(curPage = curPage+1)">Trang kế &gt;</button>
+            </div> 
+    </div>
+  </div>

@@ -1,0 +1,153 @@
+<div class="component-content">
+  <div class="content content-form">
+      <div class="progress" style="margin-bottom: 15px;">
+              <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;">
+                  <span class="hidden-xs">Bước 3/4</span> 
+              </div>
+      </div>
+      <form (ngSubmit)="validMultiSelect && step3Form.valid" [formGroup]="step3Form">
+          <div class="panel panel-form">
+              <div class="panel-heading">
+                  <h4 class="panel-title">Mục tiêu nghề nghiệp</h4>
+              </div>
+              <div class="panel-body">
+                          
+                  <div class="form-group">
+                     <label for="placeForm" class="required control-label col-sm-3">Nơi làm việc<strong class="text-danger"> *</strong></label>
+
+                  <div class="col-sm-9">
+                    <select2 [data]="placeOfWork"
+                    [options]="options"
+                    [value]="placeOfWorkValue"
+                    [width] = "300"
+                    (valueChanged)="changedPlace($event)" [cssImport]=true id="placeForm"></select2>    
+                      <input *ngIf="isEdit" [(ngModel)]="resumeModel.purpose.canChangePlace" type="checkbox" class="edit-control"  formControlName="canChangePlace">        
+                      <input *ngIf="!isEdit" type="checkbox" class="edit-control"   formControlName="canChangePlace">
+                      <em>Có thể thay đổi nơi làm việc</em>
+                      <div *ngIf="validPlaceOfWork && isSubmit">
+                        <small class="text-danger">
+                            Vui lòng nhập nơi làm việc.
+                        </small>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="form-group">
+                      <label class="required control-label col-sm-3">Ngành nghề<strong class="text-danger"> *</strong></label>
+                          
+                    <div class="col-sm-9">
+                        <select2 [data]="categorys"
+                        [options]="options"
+                        [value]="categorysValue"
+                        [width] = "300"
+                        (valueChanged)="changedCategory($event)" [cssImport]=true ></select2>
+                        <div *ngIf="validCategory && isSubmit">
+                             <small class="text-danger">
+                                 Vui lòng nhập ngành nghề.
+                             </small>
+                         </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="levelForm" class="required control-label col-sm-3">Cấp bậc mong muốn<strong class="text-danger"> *</strong></label>
+                        
+                    <div class="col-sm-9">
+                        <select *ngIf="isEdit" [(ngModel)]="resumeModel.purpose.levelOfWork.id" id="levelForm"  class="form-control hardcodedropdown-width" formControlName="levelOfWork">
+                            <option *ngFor="let levelOfWork of levelOfWorks" [value]="levelOfWork.id">{{levelOfWork.name}}</option>
+                        </select>
+                        <select *ngIf="!isEdit" id="levelForm"  class="form-control hardcodedropdown-width" formControlName="levelOfWork">
+                            <option *ngFor="let levelOfWork of levelOfWorks" [value]="levelOfWork.id">{{levelOfWork.name}}</option>
+                        </select>
+                        <div *ngIf="isSubmit && f.levelOfWork.errors">
+                          <small class="text-danger" *ngIf = "f.levelOfWork.errors.required">
+                              Vui lòng chọn cấp bậc mong muốn.
+                          </small>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="typeOfWorkForm" class="required control-label col-sm-3">Loại hình công việc<strong class="text-danger"> *</strong></label>
+                        
+                  <div class="col-sm-9">     
+                    <select *ngIf="isEdit" [(ngModel)]="resumeModel.purpose.typeOfWork.id" id="typeOfWorkForm"  class="form-control hardcodedropdown-width" formControlName="typeOfWork">
+                        <option *ngFor="let typeOfWork of typeOfWorks" [value]="typeOfWork.id">{{typeOfWork.name}}</option>
+                    </select>
+                    <select *ngIf="!isEdit" id="typeOfWorkForm"  class="form-control hardcodedropdown-width" formControlName="typeOfWork">
+                        <option *ngFor="let typeOfWork of typeOfWorks" [value]="typeOfWork.id">{{typeOfWork.name}}</option>
+                    </select>
+
+                    <div *ngIf="isSubmit && f.typeOfWork.errors">
+                        <small class="text-danger" *ngIf = "f.typeOfWork.errors.required">
+                            Vui lòng chọn loại hình công việc.
+                        </small>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="salaryForm" class="required control-label col-sm-3">Mức lương mong muốn<strong class="text-danger"> *</strong></label>
+                        
+                  <div class="col-sm-9">
+                    <input currencyMask *ngIf="isEdit" [(ngModel)]="resumeModel.purpose.salary" type="text" id="salaryForm" class="form-control hardcodedropdown-width" formControlName="salary"  [options]="currencyMask">
+                    <input currencyMask *ngIf="!isEdit" type="text" id="salaryForm" class="form-control hardcodedropdown-width" formControlName="salary"  [options]="currencyMask">
+                    <div *ngIf="isSubmit && f.salary.errors">
+                        <small class="text-danger" *ngIf = "f.salary.errors.required">
+                            Vui lòng nhập mức lương mong muốn.
+                        </small>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                  <label for="ambitionForm" class="required control-label col-sm-3">Mục tiêu nghề nghiệp</label>
+                        
+                  <div class="col-sm-9 form-inline">
+                    <textarea *ngIf="isEdit" [(ngModel)]="resumeModel.purpose.ambition" type="text" rows="8" id="ambitionForm" class="form-control hardcodedropdown-width" formControlName="ambition"></textarea>
+                    <textarea *ngIf="!isEdit" type="text" rows="8" id="ambitionForm" class="form-control hardcodedropdown-width" formControlName="ambition"></textarea>
+                  </div>
+                </div>
+
+                
+                <div class="form-group">
+                    <label for="ambitionForm" class="required control-label col-sm-3">Cho phép tìm kiếm hồ sơ</label>
+                        
+                  <div class="col-sm-9 form-inline">
+                    <input *ngIf="isEdit" [(ngModel)] = "isSearch" type="checkbox" class="edit-control" formControlName="canSearch">
+                    <input *ngIf="!isEdit" type="checkbox" class="edit-control"   formControlName="canSearch">
+                  </div>
+                </div>
+
+<!--                 <div class="form-group">
+                    <label for="benefitForm" class="required control-label col-sm-3">5 phúc lợi mong muốn nhất<strong class="text-danger"> *</strong></label>
+                        
+                  <div class="col-sm-9 form-inline">
+                    <select2 [data]="exampleData"
+                    [options]="options"
+                    [value]="value"
+                    [width] = "300"
+                    (valueChanged)="changed($event)" [cssImport]=true id="benefitForm"></select2>
+                  </div>
+                </div> -->
+
+              </div>
+          </div>
+  
+          <div class="form-group form-btn-container row">
+                  <div *ngIf="!isEdit" class="offset-sm-3 col-sm-9">
+                     <input [hidden]="isSubmit && !step3Form.valid" type="submit" name="btnBack" class="btn btn-default" value="Lưu Tạm" type="submit" (click)="saveDraft()">
+                      <input [hidden]="isSubmit && !step2Form.valid" type="submit" name="btnNext" class="btn btn-primary" value="Lưu Bước 3 để tiếp tục Bước 4" type="submit" (click)="saveData()">
+                  </div>
+
+                  <div *ngIf="isEdit" class="offset-sm-3 col-sm-9">
+                    <input [hidden]="isSubmit && !step3Form.valid" type="submit" name="btnBack" class="btn btn-default" value="Đóng" type="submit" (click)="saveBack()">
+                    <input [hidden]="isSubmit && !step3Form.valid" type="submit" name="btnNext" class="btn btn-primary" value="Lưu Bước 3" type="submit" (click)="saveData()">
+                </div>
+          </div>
+      </form>
+
+  </div>
+</div>

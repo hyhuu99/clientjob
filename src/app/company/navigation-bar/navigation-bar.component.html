@@ -1,0 +1,35 @@
+<header id="header">
+        <div class="container-fluid">
+          <div class="row align-items-center justify-content-between d-flex">
+            <div id="logo">
+              <a routerLink="/congty"><img src="/assets/img/logo.png" alt="" title="" /></a>
+            </div>
+
+            <nav id="nav-menu-container">
+              <ul class="nav-menu">
+                <li><button routerLink="dangtin" class="btn btn-primary m-r-xs"><i class="fa fa-fw fa-plus"></i>
+                  <span>Đăng tuyển dụng</span></button>
+                </li>
+                <li><button routerLink="timungvien" class="btn btn-primary m-r-xs"><i class="fa fa-fw fa-search"></i>
+                  <span>Tìm ứng viên</span></button>
+                </li>
+                
+                <li><div *ngIf="!isLogin"><a class="ticker-btn" routerLink="/login">Đăng ký</a></div></li>
+                <li><div *ngIf="!isLogin"><a class="ticker-btn" routerLink="/login">Đăng nhập</a></div></li>
+                <li>
+                    <div ngbDropdown class="d-inline-block" *ngIf="isLogin">
+                        <button class="btn btn-outline-light" id="user-dropdown" ngbDropdownToggle>{{username}}</button>
+                        <div ngbDropdownMenu aria-labelledby="user-dropdown" class="dropdown-menu">
+                          <button class="dropdown-item" routerLink="/congty/thongtin">Thông tin công ty</button>
+                          <!-- <button class="dropdown-item" routerLink="taikhoan">Tài khoản</button> -->
+                          <button class="dropdown-item" (click)="logout()">Đăng xuất</button>
+                        </div>
+                      </div>   
+                </li>  
+          
+              </ul>
+            </nav>   		
+          </div>
+          
+        </div>
+</header>

@@ -1,0 +1,67 @@
+<div class="single-slidebar">
+  <h4>Công việc theo địa điểm</h4>
+  <ul class="cat-list" *ngFor="let job of jobLocations">
+    <li routerLink="/timviec" [queryParams]="{locationId: job.locationId }">
+      <a class="justify-content-between d-flex">
+        <p>{{job.locationName}}</p>
+        <span>{{job.quantity}}</span>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="single-slidebar" *ngIf="jobList && jobList.length>0 && jobList[0]">
+  <h4>Các công việc được yêu thích nhất</h4>
+  <div class="active-relatedjob-carusel owl-carousel owl-theme owl-loaded">
+    <div class="owl-stage-outer">
+      <div class="owl-stage" style="transition: 0.25s">
+        <div class="owl-item cloned" style="width: 310px; margin-right: 30px;">
+          <div class="single-rated">
+            <img class="img-fluid" src="/assets/img/b2.jpg" alt="" [routerLink]="['/congviec', jobList[0].id]">
+            <a [routerLink]="['/congviec', jobList[0].id]">
+              <h4>{{jobList[0].name}}</h4>
+            </a>
+            <h6>{{jobList[0].companyName}}</h6>
+            <p>
+              {{jobList[0].summary}}
+            </p>
+            <h5>Tính chất công việc: {{jobList[0].jobTypeName}}</h5>
+            <p class="vacancies">
+              <span class="lnr lnr-bullhorn"></span> Số lượng: {{jobList[0].vacancies}}</p>
+            <p class="salary">
+              <span class="lnr lnr-database"></span> Mức lương: <span>{{ jobList[0].salary  | number:0}} VNĐ</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="owl-controls">
+      <div class="owl-nav">
+        <div class="owl-prev" style="display: none;">prev</div>
+        <div class="owl-next" style="display: none;">next</div>
+      </div>
+      <!-- <div class="owl-dots" style="">
+        <div class="owl-dot">
+          <span></span>
+        </div>
+        <div class="owl-dot">
+          <span></span>
+        </div>
+        <div class="owl-dot active">
+          <span></span>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+<div class="single-slidebar">
+  <h4>Công việc theo ngành nghề</h4>
+  <ul class="cat-list" *ngFor="let job of jobCategories">
+    <li routerLink="/timviec" [queryParams]="{categoryId: job.categoryId }">
+      <a class="justify-content-between d-flex">
+        <p>{{job.categoryName}}</p>
+        <span>{{job.quantity}}</span>
+      </a>
+    </li>
+  </ul>
+</div>

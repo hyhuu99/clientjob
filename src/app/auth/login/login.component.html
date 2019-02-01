@@ -1,0 +1,98 @@
+<div class="login-register-container">
+  <div class="login-register">
+    <div class="login-register__nav-bar">
+      <div class="login-register__logo">
+        <a href="#">
+          <img src="/assets/img/logo.png" alt="" title="" />
+        </a>
+      </div>
+      <div class="login-register__nav-bar-btn">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="genric-btn" [ngClass]="!login ? 'primary' : 'default-border'" (click)="switch(true)">ĐĂNG NHẬP</a>
+          </li>
+          <li class="nav-item">
+            <a class="genric-btn" [ngClass]="login ? 'primary' : 'default-border'" (click)="switch(false)">ĐĂNG KÝ</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <form (ngSubmit)="loginForm.valid && loginfunction()" [formGroup]="loginForm">
+        <div class="alert alert-danger" [hidden]="!error">
+            Thông tin không hợp lệ.
+          </div>
+      <div class="login-form" *ngIf="login">
+          <div  *ngIf="g.username.errors && isSubmitLogin" class="error-text">
+              <p class="text-danger" >
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Vui lòng nhập email.
+              </p> 
+             </div> 
+             <div *ngIf="g.password.errors && isSubmitLogin" class="error-text">
+                <p class="text-danger" >
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Vui lòng nhập mật khẩu.
+                </p> 
+              </div> 
+        <div class="mt-20">
+          <input type="text" placeholder="Email" class="single-input" formControlName="username">
+        </div>
+        <div class="mt-20">
+          <input type="password" placeholder="Mật khẩu" class="single-input" formControlName="password">
+        </div>
+        <div class="mt-20">
+          <button class="genric-btn primary login-register__button"  (click)="loginButton()">
+            <span >ĐĂNG NHẬP</span>
+          </button>
+        </div>
+        <div class="mt-20 d-flex justify-content-between login-register__remember-me">
+          <div class="confirm-checkbox">
+            <input type="checkbox" id="confirm-checkbox" formControlName="remember">
+            <label for="confirm-checkbox"></label>
+          </div>
+          <p>Duy trì đăng nhập</p>
+        </div>
+      </div>
+    </form> 
+
+    <form (ngSubmit)="singupForm.valid && singupFunction()" [formGroup]="singupForm" novalidate >
+        <div class="alert alert-danger" [hidden]="!singupError">
+            {{errorMessage}}
+          </div>
+        <div class="register-form" *ngIf="!login">
+                <div *ngIf="f.email.errors && isSubmitSingup" class="error-text">
+                    <p class="text-danger" *ngIf="f.email.errors.required">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Vui lòng nhập email.
+                    </p> 
+                    <p class="text-danger" *ngIf="f.email.errors.email">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Địa chỉ email không đúng định dạng.
+                    </p> 
+                </div> 
+                <div *ngIf="f.password.errors && isSubmitSingup" class="error-text">
+                    <p class="text-danger" *ngIf="f.password.errors.required">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Vui lòng nhập mật khẩu.
+                    </p> 
+                    <p class="text-danger" *ngIf = "f.password.errors.minlength">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Mật khẩu ít nhất là 6 ký tự.
+                    </p> 
+                </div> 
+
+            <div class="mt-20">
+              <input type="text" placeholder="Email" class="single-input" formControlName="email" email pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">
+            </div>
+            <div class="mt-20">
+              <input type="password" placeholder="Mật khẩu" class="single-input" formControlName="password">
+            </div>
+            <div class="mt-20 d-flex justify-content-between login-register__remember-me">
+              <div class="confirm-checkbox">
+                <input type="checkbox" id="confirm-singup" formControlName="isHr">
+                <label for="confirm-singup"></label>
+              </div>
+              <p>Nhà tuyển dụng</p>
+            </div>
+            <div class="mt-20">
+              <button class="genric-btn primary login-register__button" (click)="singupButton()">ĐĂNG KÝ</button>
+            </div>
+          </div>
+    </form>
+
+  </div>
+</div>

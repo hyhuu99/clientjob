@@ -1,0 +1,351 @@
+<div class="component-content">
+  <div class="content content-form">
+      <div class="progress" style="margin-bottom: 15px;">
+              <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                  <span class="hidden-xs">Bước 4/4</span> 
+              </div>
+      </div>
+            <div class="panel panel-form">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Ảnh đại diện
+                        <a href="hoso/tieuchuan-buoc1" class="icon-color"><i class="fa fa-pencil" aria-hidden="true"></i></a> 
+                    </h4>
+                </div>
+                <div class="panel-body">
+
+                <div class="form-group" *ngIf="resumeModel.contactInfo !== null">
+                        <div class="col-sm-9 " *ngIf="resumeModel.contactInfo.image !== null">
+                                <img id="blah" class="avatar-image" [src]="resumeModel.contactInfo.image" />
+                        </div>
+                </div>         
+                </div>
+            </div>
+
+          <div class="panel panel-form">
+              <div class="panel-heading">
+                  <h4 class="panel-title">Tiêu đề đơn xin việc
+                    <a href="hoso/tieuchuan-buoc1" class="icon-color"><i class="fa fa-pencil" aria-hidden="true"></i></a> 
+                  </h4>
+              </div>
+              <div class="panel-body">
+                          
+                <div class="form-group" *ngIf="resumeModel.contactInfo !== null">
+                     <label class="required control-label col-sm-3">Tiêu đề đơn xin việc</label>
+
+                     <div class="col-sm-9 " class="word-break">
+                        <p class="control-p">{{resumeModel.title}}</p>
+                      </div>
+                </div>
+
+              </div>
+          </div>
+  
+          <div class="panel panel-form">
+                  <div class="panel-heading">
+                      <h4 class="panel-title">Thông tin cá nhân
+                        <a href="hoso/tieuchuan-buoc1" class="icon-color"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                      </h4>
+                  </div>
+              
+              <div class="panel-body" *ngIf="resumeModel.contactInfo !== null">
+                              
+                  <div class="form-group">
+                          <label for="fullnameForm" class="required control-label col-sm-3">Họ và tên</label>
+                              
+                          <div class="col-sm-9 " class="word-break" *ngIf="resumeModel.contactInfo.fullName !== null">
+                            <p class="control-p">{{resumeModel.contactInfo.fullName}}</p>
+                          </div>
+                  </div>
+                              
+                  <div class="form-group">
+                          <label for="genderForm" class="required control-label col-sm-3">Giới tính</label>
+              
+                          <div class="col-sm-9 " class="word-break" *ngIf="resumeModel.contactInfo.gender !== null">
+                            <p class="control-p">{{resumeModel.contactInfo.gender.name}}</p>
+                          </div>
+                  </div>
+              
+                      <div class="form-group">
+                          <label for="dayOfBirthForm" class="required control-label col-sm-3">Ngày sinh</label>
+              
+                          <div class="col-sm-9 " class="word-break" *ngIf="resumeModel.contactInfo.birthDay !== null">
+                           <p class="control-p">{{resumeModel.contactInfo.birthDay}}</p>
+                          </div>
+                      </div>
+              
+                              
+                  <div class="form-group">
+                          <label for="relationshipForm" class="required control-label col-sm-3">Tình trạng hôn nhân</label>
+              
+                          <div class="col-sm-9 " class="word-break" *ngIf="resumeModel.contactInfo.relationShip !== null">
+                            <p class="control-p">{{resumeModel.contactInfo.relationShip.name}}</p>
+                          </div>
+                  </div>
+                              
+                  <div class="form-group">
+                      <label for="nationalityForm" class="required control-label col-sm-3">Quốc tịch</label>
+              
+                              
+                      <div class="col-sm-9 " class="word-break" *ngIf="resumeModel.contactInfo.nationality !== null">
+                        <p class="control-p">{{resumeModel.contactInfo.nationality.name}}</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+  
+          <div class="panel panel-form" >
+                  <div class="panel-heading">
+                      <h4 class="panel-title">Thông tin liên hệ
+                        <a href="hoso/tieuchuan-buoc1" class="icon-color"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                      </h4>
+                  </div>
+                  <div class="panel-body" *ngIf="resumeModel.contactInfo !== null">
+                              
+                  <div class="form-group">
+                          <label for="addressForm" class="required control-label col-sm-3">Địa chỉ</label>
+                          <div class="col-sm-9 " class="word-break" *ngIf="resumeModel.contactInfo.address !== null">
+                            <p class="control-p">{{resumeModel.contactInfo.address}}</p>
+                          </div>
+                  </div>
+              
+                  <div class="form-group">
+                      <label for="countryForm" class="required control-label col-sm-3">Quốc gia</label>
+                      
+                      <div class="col-sm-9 " class="word-break" *ngIf="resumeModel.contactInfo.country !== null">
+                        <p class="control-p">{{resumeModel.contactInfo.country.name}}</p>
+                      </div>
+                  </div>
+
+                  <div class="form-group">
+                              <label  class="required control-label col-sm-3">Tỉnh</label>
+              
+                              <div class="col-sm-9 " class="word-break" *ngIf="resumeModel.contactInfo.city !== null">
+                                <p class="control-p">{{resumeModel.contactInfo.city.name}}</p>
+                              </div>
+                      </div>
+                              
+                  <div class="form-group">
+                          <label  class="control-label col-sm-3">Số điện thoại</label>
+                
+                          <div class="col-sm-9 " class="word-break" *ngIf="resumeModel.contactInfo.phoneNumber !== null">
+                            <p class="control-p">{{resumeModel.contactInfo.phoneNumber}}</p>
+                          </div>
+                  </div>
+                              
+                  <div class="form-group">
+                              <label class="required control-label col-sm-3">E-Mail</label>
+                              
+                              <div class="col-sm-9 " class="word-break" *ngIf="resumeModel.contactInfo.email !== null">
+                                <p class="control-p">{{resumeModel.contactInfo.email}}</p>
+                              </div>
+                  </div>
+              </div>
+          </div>
+        <div class="panel panel-form">
+                  <div class="panel-heading">
+                      <h4 class="panel-title">Học vấn/Ngoại ngữ
+                        <a href="hoso/tieuchuan-buoc2" class="icon-color"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                      </h4>
+                  </div>
+              
+              <div class="panel-body" *ngIf="resumeModel.expInfo !== null">
+                              
+                  <div class="form-group">
+                          <label  class="required control-label col-sm-3">Tên trường</label>
+                              
+                          <div class="col-sm-9 " class="word-break" *ngIf="resumeModel.expInfo.school !== null">
+                            <p class="control-p">{{resumeModel.expInfo.school}}</p>
+                          </div>
+                  </div>
+                              
+                  <div class="form-group">
+                          <label  class="required control-label col-sm-3">Bằng cấp</label>
+              
+                          <div class="col-sm-9 " class="word-break" *ngIf="resumeModel.expInfo.qualification !== null">
+                            <p class="control-p">{{resumeModel.expInfo.qualification.name}}</p>
+                          </div>
+                  </div>
+              
+                      <div class="form-group">
+                          <label class="required control-label col-sm-3">Quá trình học vấn</label>
+              
+                          <div class="col-sm-9 " class="word-break" *ngIf="resumeModel.expInfo.achievements !== null">
+                            <p class="control-p">{{resumeModel.expInfo.achievements}}</p>
+                          </div>
+                      </div>
+              
+                              
+                  <div class="form-group">
+                      <label  class="required control-label col-sm-3">Ngoại ngữ</label>
+              
+                      <div class="col-sm-9 " class="word-break">
+                        <p class="control-p" *ngFor="let language of resumeModel.expInfo.languages; let i = index">{{language.name}} - 
+                            <span>{{resumeModel.expInfo.levelLanguages[i].name}}</span></p>
+                      </div>
+                  </div>                       
+              
+              </div>
+          </div>
+  
+
+          <div class="panel panel-form">
+            <div class="panel-heading">
+                <h4 class="panel-title">Kinh nghiệm làm việc
+                  <a href="hoso/tieuchuan-buoc2" class="icon-color"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                </h4>
+            </div>
+        
+            <div class="panel-body" *ngIf="resumeModel.expInfo !==null">
+                        
+            <div class="form-group">
+                    <label  class="required control-label col-sm-3">Tổng số năm làm việc </label>
+                        
+                    <div class="col-sm-9 " class="word-break" *ngIf="resumeModel.expInfo.yearOfWork !== null">
+                        <p class="control-p">{{resumeModel.expInfo.yearOfWork.name}}</p>
+                    </div>
+            </div>
+                        
+            <div class="form-group">
+                    <label  class="required control-label col-sm-3">Vị trí công việc gần đây nhất</label>
+        
+                    <div class="col-sm-9 " class="word-break" *ngIf="resumeModel.expInfo.position !== null">
+                        <p class="control-p">{{resumeModel.expInfo.position}}</p>
+                    </div>
+            </div>
+        
+                <div class="form-group">
+                    <label class="required control-label col-sm-3">Công ty làm việc gần đây nhấ</label>
+        
+                    <div class="col-sm-9 " class="word-break" *ngIf="resumeModel.expInfo.previousCompany !== null">
+                        <p class="control-p">{{resumeModel.expInfo.previousCompany}}</p>
+                    </div>
+                </div>
+        
+                        
+            <div class="form-group">
+                <label  class="required control-label col-sm-3">Mô tả</label>
+        
+                <div class="col-sm-9 " class="word-break"  *ngIf="resumeModel.expInfo.description !== null">
+                    <p class="control-p">{{resumeModel.expInfo.description}}</p>
+                </div>
+            </div>                       
+        
+            </div>
+        </div>
+
+        <div class="panel panel-form">
+            <div class="panel-heading">
+                <h4 class="panel-title">Người tham khảo
+                  <a href="hoso/tieuchuan-buoc2" class="icon-color"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                </h4>
+            </div>
+        
+            <div class="panel-body" *ngIf="resumeModel.expInfo">
+                        
+            <div class="form-group">
+                    <label  class="required control-label col-sm-3">Người tham khảo</label>
+                        
+                    <div class="col-sm-9 " class="word-break" *ngIf="resumeModel.expInfo.references !== null">
+                        <p class="control-p">{{resumeModel.expInfo.references}}</p>
+                    </div>
+            </div>            
+            </div>
+        </div>
+
+        <div class="panel panel-form">
+            <div class="panel-heading">
+                <h4 class="panel-title">Kỹ năng
+                  <a href="hoso/tieuchuan-buoc2" class="icon-color"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                </h4>
+            </div>
+        
+            <div class="panel-body" *ngIf="resumeModel.expInfo !== null">
+                        
+            <div class="form-group">
+                    <label  class="required control-label col-sm-3">Kỹ năng</label>
+                        
+                    <div class="col-sm-9 " class="word-break" *ngIf="resumeModel.expInfo.skills !== null">
+                        <p class="control-p">{{resumeModel.expInfo.skills}}</p>
+                    </div>
+            </div>            
+            </div>
+        </div>
+
+        <div class="panel panel-form">
+            <div class="panel-heading">
+                <h4 class="panel-title">Mục tiêu nghề nghiệp
+                  <a href="hoso/tieuchuan-buoc3" class="icon-color"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                </h4>
+            </div>
+        
+            <div class="panel-body" *ngIf="resumeModel.purpose !== null">
+                        
+            <div class="form-group">
+                    <label  class="required control-label col-sm-3">Nơi làm việc</label>
+                        
+                    <div class="col-sm-9 " class="word-break">
+                        <p class="control-p" *ngFor="let placeOfWork of resumeModel.purpose.placeOfWorks">{{placeOfWork.name}}</p>
+                    </div>
+            </div>
+                        
+            <div class="form-group">
+                    <label  class="required control-label col-sm-3">Ngành nghề</label>
+        
+                    <div class="col-sm-9 " class="word-break">
+                        <p class="control-p" *ngFor="let category of resumeModel.purpose.categorys">{{category.name}}</p>
+                    </div>
+            </div>
+        
+                <div class="form-group">
+                    <label class="required control-label col-sm-3">Cấp bậc mong muốn</label>
+        
+                    <div class="col-sm-9 " class="word-break" *ngIf="resumeModel.purpose.levelOfWork !== null">
+                        <p class="control-p">{{resumeModel.purpose.levelOfWork.name}}</p>
+                    </div>
+                </div>
+        
+                        
+            <div class="form-group">
+                <label  class="required control-label col-sm-3">Loại hình công việc</label>
+        
+                <div class="col-sm-9 " class="word-break" *ngIf="resumeModel.purpose.typeOfWork !== null">
+                    <p class="control-p">{{resumeModel.purpose.typeOfWork.name}}</p>
+                </div>
+            </div>        
+            
+            <div class="form-group">
+                <label  class="required control-label col-sm-3">Mức lương mong muốn</label>
+        
+                <div class="col-sm-9 " class="word-break" *ngIf="resumeModel.purpose.salary !== null">
+                    <p class="control-p">{{ resumeModel.purpose.salary |  number:0}} VNĐ</p>
+                </div>
+            </div>    
+
+            <div class="form-group">
+                <label  class="required control-label col-sm-3">Mục tiêu nghề nghiệp</label>
+        
+                <div class="col-sm-9 " class="word-break" *ngIf="resumeModel.purpose.ambition !== null">
+                    <p class="control-p">{{resumeModel.purpose.ambition}}</p>
+                </div>
+            </div>    
+             <div class="form-group">
+                <label  class="required control-label col-sm-3">Có thể thay đổi nơi làm việc</label>
+        
+                <div class="col-sm-9 " class="word-break" *ngIf="resumeModel.purpose !== null">
+                    <p class="control-p" *ngIf="resumeModel.purpose.canChangePlace">Có</p>
+                    <p class="control-p" *ngIf="!resumeModel.purpose.canChangePlace">Không</p>
+                </div>
+            </div>   
+             <div class="form-group">
+                <label  class="required control-label col-sm-3">Trạng thái hồ sơ</label>
+
+                <div class="col-sm-9 " class="word-break" *ngIf="resumeModel.status !== null">
+                    <p class="control-p" *ngIf="resumeModel.status === 2">Cho phép tìm kiếm</p>
+                    <p class="control-p" *ngIf="resumeModel.status !== 2">Không cho phép tìm kiếm</p>
+                </div>
+            </div>  
+        
+            </div>
+        </div>
+  </div>
+</div>

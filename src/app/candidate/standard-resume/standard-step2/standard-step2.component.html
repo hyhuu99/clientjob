@@ -1,0 +1,254 @@
+<div class="component-content">
+  <div class="content content-form">
+      <div class="progress" style="margin-bottom: 15px;">
+              <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
+                  <span class="hidden-xs">Bước 2/4</span> 
+              </div>
+      </div>
+      <form (ngSubmit)="step2Form.valid" [formGroup]="step2Form" novalidate>
+          <div class="panel panel-form">
+              <div class="panel-heading">
+                  <h4 class="panel-title">Học vấn</h4>
+              </div>
+              <div class="panel-body">
+                          
+                  <div class="form-group">
+                     <label for="qualificationForm" class="required control-label col-sm-4">Bằng cấp<strong class="text-danger"> *</strong></label>
+
+                  <div class="col-sm-8">
+                    <select *ngIf="resumeModel.expInfo !== null" [(ngModel)] = "resumeModel.expInfo.qualification.id" id="qualificationForm"  class="form-control select-width" formControlName="qualification">
+                        <option *ngFor="let qualification of qualifications" [value]="qualification.id">{{qualification.name}}</option>
+                    </select>
+
+                    <select *ngIf="resumeModel.expInfo === null" id="qualificationForm"  class="form-control select-width" formControlName="qualification">
+                      <option *ngFor="let qualification of qualifications" [value]="qualification.id">{{qualification.name}}</option>
+                    </select>
+                       <div *ngIf="isSubmit && f.qualification.errors">
+                          <small class="text-danger" *ngIf = "f.qualification.errors.required">
+                              Vui lòng nhập bằng cấp.
+                          </small>
+                      </div> 
+                  </div>
+                  </div>
+
+                  <div class="form-group">
+                      <label for="schoolForm" class="required control-label col-sm-4">Trường<strong class="text-danger"> *</strong></label>
+                          
+                  <div class="col-sm-8">
+                      <input *ngIf="resumeModel.expInfo !== null" [(ngModel)] = "resumeModel.expInfo.school" type="text" id="schoolForm" class="form-control" formControlName="school">
+                      <input *ngIf="resumeModel.expInfo === null" type="text" id="schoolForm" class="form-control" formControlName="school">
+                       <div *ngIf="isSubmit && f.school.errors">
+                          <small class="text-danger" *ngIf = "f.school.errors.required">
+                              Vui lòng nhập trường học.
+                          </small>
+                      </div> 
+                  </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="achievementsForm" class="required control-label col-sm-4">Thành tựu</label>
+                        
+                  <div class="col-sm-8">
+                      <textarea *ngIf="resumeModel.expInfo !== null" [(ngModel)] = "resumeModel.expInfo.achievements" id="achievementsForm" rows="8" class="form-control" formControlName="achievements"></textarea>
+                      <textarea *ngIf="resumeModel.expInfo === null" id="achievementsForm" rows="8" class="form-control" formControlName="achievements"></textarea>
+                  </div>
+                </div>
+              </div>
+          </div>
+
+          <div class="panel panel-form">
+              <div class="panel-heading">
+                  <h4 class="panel-title">Ngoại ngữ</h4>
+                  </div>
+                <div class="panel-body">
+                  <div class="form-group">
+                      <label for="languagesForm" class="required control-label col-sm-4">Ngoại ngữ 1</label>
+          
+                    <div class="col-sm-8 form-inline">
+                            <div *ngIf="disableLevelLg <= 3 && disableLevelLg > 0">
+                                    <select id="languagesForm"  class="form-control" (change)="onChangeLanguage($event)" [(ngModel)]="languagesInput.value1" [ngModelOptions]="{standalone: true}">
+                                        <option *ngFor="let language of languages" [value]="language.id">{{language.name}}</option>
+                                    </select>
+                                    <select class="form-control language-level" [disabled]="disabled.disabled1"  [(ngModel)]="levelsInput.value1" [ngModelOptions]="{standalone: true}">
+                                        <option *ngFor="let level of levels" [value]="level.id">{{level.name}}</option>
+                                    </select>
+                            </div>
+                               
+                            <div *ngIf="resumeModel.expInfo === null">
+                                    <select  id="languagesForm"  class="form-control" (change)="onChangeLanguage($event)" [(ngModel)]="languagesInput.value1" [ngModelOptions]="{standalone: true}">
+                                        <option *ngFor="let language of languages" [value]="language.id">{{language.name}}</option>
+                                    </select>
+                                    <select  class="form-control language-level" [disabled]="disabled.disabled1"  [(ngModel)]="levelsInput.value1" [ngModelOptions]="{standalone: true}">
+                                        <option *ngFor="let level of levels" [value]="level.id">{{level.name}}</option>
+                                    </select>
+                            </div>
+
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="languages2Form" class="required control-label col-sm-4">Ngoại ngữ 2</label>
+        
+                  <div class="col-sm-8 form-inline">
+                        <div *ngIf="disableLevelLg <= 3 && disableLevelLg > 0">
+                                <select  id="languages2Form"  class="form-control" (change)="onChangeLanguage2($event)" [(ngModel)]="languagesInput.value2" [ngModelOptions]="{standalone: true}">
+                                        <option *ngFor="let language of languages" [value]="language.id">{{language.name}}</option>
+                                </select>
+                                <select class="form-control language-level" [disabled]="disabled.disabled2"  [(ngModel)]="levelsInput.value2" [ngModelOptions]="{standalone: true}">
+                                        <option *ngFor="let level of levels" [value]="level.id">{{level.name}}</option>
+                                </select>
+                        </div> 
+                        <div *ngIf="resumeModel.expInfo === null">
+                                <select id="languages2Form"  class="form-control" (change)="onChangeLanguage2($event)" [(ngModel)]="languagesInput.value2" [ngModelOptions]="{standalone: true}">
+                                        <option *ngFor="let language of languages" [value]="language.id">{{language.name}}</option>
+                                </select>
+                                <select  class="form-control language-level" [disabled]="disabled.disabled2"  [(ngModel)]="levelsInput.value2" [ngModelOptions]="{standalone: true}">
+                                        <option *ngFor="let level of levels" [value]="level.id">{{level.name}}</option>
+                                </select>
+                        </div>
+
+                  </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="languages3Form" class="required control-label col-sm-4">Ngoại ngữ 3</label>
+        
+                  <div class="col-sm-8 form-inline">
+                    <div *ngIf="disableLevelLg === 3">
+                        <select  id="languages3Form"  class="form-control" [(ngModel)]="languagesInput.value3" [ngModelOptions]="{standalone: true}" (change)="onChangeLanguage3($event)">
+                             <option *ngFor="let language of languages" [value]="language.id">{{language.name}}</option>
+                        </select>
+                        <select  class="form-control language-level" [disabled]="disabled.disabled3"  [(ngModel)]="levelsInput.value3" [ngModelOptions]="{standalone: true}">
+                            <option *ngFor="let level of levels" [value]="level.id">{{level.name}}</option>
+                        </select>
+                    </div>
+                    <div *ngIf="disableLevelLg < 3">
+                        <select id="languages3Form"  class="form-control" [(ngModel)]="languagesInput.value3" [ngModelOptions]="{standalone: true}" (change)="onChangeLanguage3($event)">
+                            <option *ngFor="let language of languages" [value]="language.id">{{language.name}}</option>
+                        </select>
+                        <select class="form-control language-level" [disabled]="disabled.disabled3"  [(ngModel)]="levelsInput.value3" [ngModelOptions]="{standalone: true}">
+                            <option *ngFor="let level of levels" [value]="level.id">{{level.name}}</option>
+                        </select>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+          </div>
+  
+          <div class="panel panel-form">
+                  <div class="panel-heading">
+                      <h4 class="panel-title">Kinh nghiệm làm việc</h4>
+                  </div>
+              
+              <div class="panel-body">
+
+                    <div class="form-group">
+                            <label for="yearOfWorkForm" class="required control-label col-sm-4">Tổng số năm làm việc<strong class="text-danger"> *</strong></label>
+                                
+                                <div class="col-sm-8">
+                                    <select *ngIf="resumeModel.expInfo !== null" [(ngModel)] = "resumeModel.expInfo.yearOfWork.id" id="yearOfWorkForm"  class="form-control select-width" formControlName="yearOfWork" (change)="onChangeYear($event)" >
+                                     <option *ngFor="let yearOfWork of yearOfWorks" [value]="yearOfWork.id">{{yearOfWork.name}}</option>
+                                    </select>
+                                    <select *ngIf="resumeModel.expInfo === null" id="yearOfWorkForm"  class="form-control select-width" formControlName="yearOfWork" (change)="onChangeYear($event)" >
+                                        <option *ngFor="let yearOfWork of yearOfWorks" [value]="yearOfWork.id">{{yearOfWork.name}}</option>
+                                    </select>
+                                    <div *ngIf="isSubmit && f.yearOfWork.errors" >
+                                        <small class="text-danger" *ngIf = "f.yearOfWork.errors.required">
+                                            <label>Vui lòng chọn số năm kinh nghiệm.</label> 
+                                        </small>
+                                    </div> 
+                                </div>
+                    </div>
+                            
+                  <div class="form-group" [hidden]="disabledGroupExp">
+                    <label for="positionForm" class="required control-label col-sm-4">Vị trí công việc gần đây nhất<strong class="text-danger"> *</strong></label>
+          
+                    <div class="col-sm-8">
+                        <input *ngIf="resumeModel.expInfo !== null" [(ngModel)] = "resumeModel.expInfo.position" type="text" class="form-control" id="positionForm"  [hidden]="disabledGroupExp" formControlName="position">
+                        <input *ngIf="resumeModel.expInfo === null" type="text" class="form-control" id="positionForm"  [hidden]="disabledGroupExp" formControlName="position">
+                        <div *ngIf="isSubmit && f.position.errors" >
+                            <small class="text-danger" *ngIf = "f.position.errors.required">
+                                <label>Vui lòng nhập vị trí công việc gần đây nhất.</label> 
+                            </small>
+                        </div> 
+                    </div>
+                  </div>
+                              
+                  <div class="form-group" [hidden]="disabledGroupExp">
+                          <label for="previousCompanyForm" class="required control-label col-sm-4">Công ty làm việc gần đây nhất<strong class="text-danger"> *</strong></label>
+              
+                      <div class="col-sm-8">
+                          <input *ngIf="resumeModel.expInfo !== null" [(ngModel)] = "resumeModel.expInfo.previousCompany" type="text" class="form-control" id="previousCompanyForm"  formControlName="previousCompany">
+                          <input *ngIf="resumeModel.expInfo === null" type="text" class="form-control" id="previousCompanyForm"  formControlName="previousCompany">
+                          <div *ngIf="f.previousCompany.errors && isSubmit" >
+                              <small class="text-danger" *ngIf = "f.previousCompany.errors.required">
+                                  <label>Vui lòng nhập công ty làm việc gần đây nhất.</label> 
+                              </small>
+                          </div> 
+                      </div>
+                  </div>
+
+                    <div class="form-group" [hidden]="disabledGroupExp">
+                        <label for="descriptionForm" class="required control-label col-sm-4">Mô tả</label>
+                        <div class="col-sm-8">
+                          <textarea *ngIf="resumeModel.expInfo !== null" [(ngModel)] = "resumeModel.expInfo.description" id="descriptionForm" rows="5" class="form-control" formControlName="description"></textarea>
+                          <textarea *ngIf="resumeModel.expInfo === null" id="descriptionForm" rows="5" class="form-control" formControlName="description"></textarea>
+                      </div>
+                </div>
+              </div>
+          </div>
+  
+          <div class="panel panel-form">
+                  <div class="panel-heading">
+                      <h4 class="panel-title">Người tham khảo</h4>
+                  </div>
+                  <div class="panel-body">
+                              
+                  <div class="form-group">
+                          <label for="referencesForm" class="required control-label col-sm-4">Người tham khảo</label>
+                        <div class="col-sm-8">
+                            <textarea *ngIf="resumeModel.expInfo !== null" [(ngModel)] = "resumeModel.expInfo.references" id="referencesForm" rows="5" class="form-control" formControlName="references"></textarea>
+                            <textarea *ngIf="resumeModel.expInfo === null" id="referencesForm" rows="5" class="form-control" formControlName="references"></textarea>
+                        </div>
+                  </div>
+            
+              </div>
+          </div>`
+
+            <div class="panel panel-form">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Kỹ năng</h4>
+                    </div>
+                    <div class="panel-body">
+                                
+                    <div class="form-group">
+                            <label for="skillsForm" class="required control-label col-sm-4">Kỹ năng<strong class="text-danger"> *</strong></label>
+                        <div class="col-sm-8">
+                            <textarea *ngIf="resumeModel.expInfo !== null" [(ngModel)] = "resumeModel.expInfo.skills" id="skillsForm" rows="5" class="form-control"  formControlName="skills"></textarea>
+                            <textarea *ngIf="resumeModel.expInfo === null" id="skillsForm" rows="5" class="form-control"  formControlName="skills"></textarea>
+                            <div *ngIf="isSubmit && f.skills.errors">
+                                    <small class="text-danger" *ngIf = "f.skills.errors.required">
+                                        Vui lòng nhập kỹ năng.
+                                    </small>
+                                </div> 
+                        </div>
+                    </div>
+            
+                </div>
+            </div>
+  
+          <div class="form-group form-btn-container row">
+                  <div *ngIf="resumeModel.expInfo === null" class="offset-sm-3 col-sm-9">
+                      <input [hidden]="isSubmit && !step2Form.valid" type="submit" name="btnBack" class="btn btn-default" value="Lưu tạm" type="submit" (click)="saveDraft()">
+                      <input [hidden]="isSubmit && !step2Form.valid" type="submit" name="btnNext" class="btn btn-primary" value="Lưu Bước 2 để tiếp tục Bước 3" type="submit" (click)="saveData()" >
+                  </div>
+                  <div *ngIf="resumeModel.expInfo !== null" class="offset-sm-3 col-sm-9">
+                    <input [hidden]="isSubmit && !step2Form.valid" type="submit" name="btnBack" class="btn btn-default" value="Đóng" type="submit" (click)="onClose()">
+                    <input [hidden]="isSubmit && !step2Form.valid" type="submit" name="btnNext" class="btn btn-primary" value="Lưu Bước 2" type="submit" (click)="saveDataAndBack()" >
+                </div>
+          </div>
+      </form>
+
+  </div>
+</div>
